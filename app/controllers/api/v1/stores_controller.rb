@@ -52,7 +52,7 @@ module Api
 
       # Only allow a trusted parameter "white list" through.
       def store_params
-        params.fetch(:store, {})
+        params.require(:store).permit(:name, :address, :email, :phone)
       end
     end
   end
