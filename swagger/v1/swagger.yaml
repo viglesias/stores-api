@@ -1,0 +1,141 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/stores":
+    post:
+      summary: Creates a store
+      tags:
+      - Stores
+      parameters: []
+      responses:
+        '201':
+          description: user created
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                address:
+                  type: string
+                email:
+                  type: string
+                phone:
+                  type: string
+              required:
+              - name
+              - address
+              - email
+              - phone
+    get:
+      summary: Retrieves all stores
+      tags:
+      - Stores
+      responses:
+        '200':
+          description: user found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  address:
+                    type: string
+                  email:
+                    type: string
+                  phone:
+                    type: string
+                required:
+                - id
+                - name
+                - address
+                - email
+                - phone
+  "/api/v1/stores/{id}":
+    delete:
+      summary: Delete a store
+      tags:
+      - Stores
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: User deleted
+    get:
+      summary: Retrieves a store
+      tags:
+      - Stores
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Store found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  address:
+                    type: string
+                  email:
+                    type: string
+                  phone:
+                    type: string
+                required:
+                - id
+                - name
+                - address
+                - email
+                - phone
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  address:
+                    type: string
+                  email:
+                    type: string
+                  phone:
+                    type: string
+                required:
+                - id
+                - name
+                - address
+                - email
+                - phone
+        '404':
+          description: Store not found
+        '406':
+          description: unsupported accept header
+servers:
+- url: http://{defaultHost}:3000
+  variables:
+    defaultHost:
+      default: localhost
