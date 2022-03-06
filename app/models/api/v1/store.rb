@@ -4,8 +4,8 @@
 module Api
   module V1
     class Store < ApplicationRecord
-        validates :name, :email, :phone, :address, presence: true
-        validates :email, format: { with: URI::MailTo::EMAIL_REGEXP } 
+      validates :name, :email, :phone, :address, presence: true
+      validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
     end
   end
 end

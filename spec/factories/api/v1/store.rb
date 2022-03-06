@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory "Api::V1::Store" do
+  factory 'Api::V1::Store' do
     name { Faker::Name.first_name }
     address { Faker::Address.full_address }
     email { Faker::Internet.email }
