@@ -1,96 +1,97 @@
-describe 'Users API' do
-  path '/api/v1/stores' do
-    post 'Creates a store' do
-      tags 'Stores'
-      consumes 'application/json'
-      parameter name: :store, in: :body, schema: {
-        type: :object,
-        properties: {
-          name: { type: :string },
-          address: { type: :string },
-          email: { type: :string },
-          phone: { type: :string }
-        },
-        required: %w[name address email phone]
-      }
+require'swagger_helper'
 
-      response '201', 'user created' do
-        let(:store) { { name: 'Store 1', address: 'address 1', email: 'email@email.com', phone: '123456789' } }
-        run_test!
+describe'API V1 Store', swagger_doc:'v1/swagger.yaml' do
+  path'/api/v1/stores' do
+    get'Retrieves Stores' do
+    description'Retrieves all the stores'
+      produces'application/json'
+      let(:collection_count) { 5 }
+      let(:expected_collection_count) { collection_count }
+      before { create_list("Api::V1::Store", collection_count) }
+      response'200','Stores retrieved' do
+      schema type: :array,
+          items: {
+            type: :object,
+            properties: {
+              id: { type: :integer },
+              name: { type: :string },
+              address: { type: :string },
+              email: { type: :string },
+              phone: { type: :string }
+            }
+          }
+        run_test! do |response|
+          expect(JSON.parse(response.body).count).to eq(expected_collection_count)
+        end
       end
+    end
 
-      response '422', 'invalid request' do
-        let(:store) { { name: 'Store 1' } }
+    post'Creates Store' do
+      description'Creates Store'
+      consumes'application/json'
+      produces'application/json'
+      parameter(name: :store, in: :body)
+      response'201','stote created' do
+        let(:store) do
+          {
+            name: 'Some title',
+            address: 'Some body',
+            email: 'email@email.com',
+            phone: "111111111"
+          }
+        end
         run_test!
       end
     end
   end
 
-  path '/api/v1/stores/{id}' do
-    delete 'Delete a store' do
-      tags 'Stores'
-      consumes 'application/json'
-      produces 'application/json'
-      parameter name: :id, in: :path, type: :string
-
-      response '200', 'User deleted' do
-        let(:id) { create('Api::V1::Store').id }
-
-        run_test!
-      end
-    end
-  end
-
-  path '/api/v1/stores' do
-    get 'Retrieves all stores' do
-      tags 'Stores'
-      produces 'application/json'
-
-      response '200', 'user found' do
+  path'/api/v1/stores/{id}' do
+    parameter name: :id, in: :path, type: :integer
+    let(:existent_api_v1_store) { create("Api::V1::Store") }
+    let(:id) { existent_api_v1_store.id }
+    get'Retrieves Store' do
+      produces'application/json'
+      response'200','store retrieved' do
         schema type: :object,
-               properties: {
-                 id: { type: :integer },
-                 name: { type: :string },
-                 address: { type: :string },
-                 email: { type: :string },
-                 phone: { type: :string }
-               },
-               required: %w[id name address email phone]
-
-        let(:id) { create('Api::V1::Store').id }
+          properties: {
+            id: { type: :integer },
+            name: { type: :string },
+            address: { type: :string },
+            email: { type: :string },
+            phone: { type: :string }
+          }
         run_test!
       end
-    end
-  end
-
-  path '/api/v1/stores/{id}' do
-    get 'Retrieves a store' do
-      tags 'Stores'
-      produces 'application/json', 'application/xml'
-      parameter name: :id, in: :path, type: :string
-
-      response '200', 'Store found' do
-        schema type: :object,
-               properties: {
-                 id: { type: :integer },
-                 name: { type: :string },
-                 address: { type: :string },
-                 email: { type: :string },
-                 phone: { type: :string }
-               },
-               required: %w[id name address email phone]
-
-        let(:id) { create('Api::V1::Store').id }
-        run_test!
-      end
-
-      response '404', 'Store not found' do
+      response'404','invalid store id' do
         let(:id) { 'invalid' }
         run_test!
       end
-
-      response '406', 'unsupported accept header' do
-        let(:Accept) { 'application/foo' }
+    end
+    put'Updates Store' do
+      description'Updates Store'
+      consumes'application/json'
+      produces'application/json'
+      parameter(name: :store, in: :body)
+      response'200','store updated' do
+        let(:store) do
+          {
+            name: 'Some title',
+            address: 'Some body',
+            email: 'email@email.com',
+            phone: "111111111"
+          }
+        end
+        run_test!
+      end
+    end
+    delete'Deletes Store' do
+      produces'application/json'
+      description'Deletes specific store'
+      response'204','store deleted' do
+        run_test!
+      end
+      response'404','store not found' do
+        let(:id) {'invalid' }
         run_test!
       end
     end

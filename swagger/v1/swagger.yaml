@@ -5,135 +5,73 @@ info:
   version: v1
 paths:
   "/api/v1/stores":
+    get:
+      summary: Retrieves Stores
+      description: Retrieves all the stores
+      responses:
+        '200':
+          description: Stores retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  address:
+                    type: string
+                  email:
+                    type: string
+                  phone:
+                    type: string
+                required:
+                - id
+                - name
+                - address
+                - email
+                - phone
     post:
-      summary: Creates a store
-      tags:
-      - Stores
+      summary: Creates Store
+      description: Creates Store
       parameters: []
       responses:
         '201':
-          description: user created
-        '422':
-          description: invalid request
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                address:
-                  type: string
-                email:
-                  type: string
-                phone:
-                  type: string
-              required:
-              - name
-              - address
-              - email
-              - phone
-    get:
-      summary: Retrieves all stores
-      tags:
-      - Stores
-      responses:
-        '200':
-          description: user found
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                  name:
-                    type: string
-                  address:
-                    type: string
-                  email:
-                    type: string
-                  phone:
-                    type: string
-                required:
-                - id
-                - name
-                - address
-                - email
-                - phone
+          description: stote created
   "/api/v1/stores/{id}":
-    delete:
-      summary: Delete a store
-      tags:
-      - Stores
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: string
-      responses:
-        '200':
-          description: User deleted
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: integer
     get:
-      summary: Retrieves a store
-      tags:
-      - Stores
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: string
+      summary: Retrieves Store
       responses:
         '200':
-          description: Store found
+          description: store retrieved
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                  name:
-                    type: string
-                  address:
-                    type: string
-                  email:
-                    type: string
-                  phone:
-                    type: string
-                required:
-                - id
-                - name
-                - address
-                - email
-                - phone
-            application/xml:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                  name:
-                    type: string
-                  address:
-                    type: string
-                  email:
-                    type: string
-                  phone:
-                    type: string
-                required:
-                - id
-                - name
-                - address
-                - email
-                - phone
+                "$ref": "#/definitions/store_resource"
         '404':
-          description: Store not found
-        '406':
-          description: unsupported accept header
+          description: invalid store id
+    put:
+      summary: Updates Store
+      description: Updates Store
+      parameters: []
+      responses:
+        '200':
+          description: store updated
+    delete:
+      summary: Deletes Store
+      description: Deletes specific store
+      responses:
+        '204':
+          description: store deleted
+        '404':
+          description: store not found
 servers:
 - url: http://{defaultHost}:3000
   variables:
