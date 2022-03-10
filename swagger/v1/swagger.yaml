@@ -4,6 +4,37 @@ info:
   title: API V1
   version: v1
 paths:
+  "/api/v1/products":
+    get:
+      summary: Retrieves Products
+      description: Retrieves all the products
+      responses:
+        '200':
+          description: Products retrieved
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    sku:
+                      type: string
+                    type:
+                      type: string
+                    price:
+                      type: string
+    post:
+      summary: Creates Product
+      description: Creates Product
+      parameters: []
+      responses:
+        '201':
+          description: stote created
   "/api/v1/stores":
     get:
       summary: Retrieves Stores
@@ -14,24 +45,20 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                  name:
-                    type: string
-                  address:
-                    type: string
-                  email:
-                    type: string
-                  phone:
-                    type: string
-                required:
-                - id
-                - name
-                - address
-                - email
-                - phone
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    address:
+                      type: string
+                    email:
+                      type: string
+                    phone:
+                      type: string
     post:
       summary: Creates Store
       description: Creates Store
@@ -54,7 +81,18 @@ paths:
           content:
             application/json:
               schema:
-                "$ref": "#/definitions/store_resource"
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  address:
+                    type: string
+                  email:
+                    type: string
+                  phone:
+                    type: string
         '404':
           description: invalid store id
     put:
