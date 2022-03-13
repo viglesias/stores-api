@@ -25,8 +25,8 @@ ActiveRecord::Schema.define(version: 2022_03_09_205630) do
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.string "sku"
-    t.string "type"
-    t.string "price"
+    t.string "product_type"
+    t.float "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

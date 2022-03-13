@@ -35,6 +35,7 @@ group :development, :test do
   gem 'rails-controller-testing'
   gem 'rspec-rails', '~> 4.0.0'
   gem 'rubocop', require: false
+  gem 'annotate'
 end
 
 group :development do
