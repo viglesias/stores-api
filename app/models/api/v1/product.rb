@@ -5,7 +5,7 @@ module Api
     module V1
       class Product < ApplicationRecord
 
-        #validates :product_type, inclusion: {in: ["Pizza", "Complement"]}
+        validates :product_type, inclusion: {in: ["Pizza", "Complement"]}
         validates :name, :sku, :product_type, :price, presence: true
         validates :price, numericality: true
 
