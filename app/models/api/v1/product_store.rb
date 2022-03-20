@@ -1,3 +1,11 @@
+# == Schema Information
+#
+# Table name: product_stores
+#
+#  id         :bigint           not null, primary key
+#  product_id :bigint
+#  store_id   :bigint
+#
 # app/models/api/v1/product.rb
 
 # Product

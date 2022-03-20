@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: products
+#
+#  id           :bigint           not null, primary key
+#  name         :string
+#  sku          :string
+#  product_type :string
+#  price        :float
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
 # app/models/api/v1/product.rb
 
 # Product
