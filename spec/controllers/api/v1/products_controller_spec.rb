@@ -69,10 +69,10 @@ RSpec.describe Api::V1::ProductsController do
 
   it 'can create a new product' do
     product_params = {
-        name: Faker::Restaurant.name,
-        sku: Faker::Restaurant.name,
-        product_type: ["Pizza", "Complement"][rand(0..1)],
-        price: Faker::Commerce.price.to_f
+      name: Faker::Restaurant.name,
+      sku: Faker::Restaurant.name,
+      product_type: %w[Pizza Complement][rand(0..1)],
+      price: Faker::Commerce.price.to_f
     }
 
     # We include this header to make sure that these params are passed as JSON rather than as plain text

@@ -41,18 +41,17 @@ RSpec.describe Api::V1::Product, type: :model do
   end
 
   it 'is not valid without price numeric' do
-    product.price = "sdsdsd"
+    product.price = 'sdsdsd'
     expect(product).to_not be_valid
   end
 
   it 'is not valid without type' do
-    product.product_type = ""
+    product.product_type = ''
     expect(product).to_not be_valid
   end
 
-  it "have created a relationship with Store" do
+  it 'have created a relationship with Store' do
     product.stores << store
     expect(product.stores.first.name).to eq(store.name)
   end
-
 end
