@@ -7,8 +7,9 @@ module Api
       validates :name, :email, :phone, :address, presence: true
       validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
 
-      has_many :product_stores
+      has_many :product_stores, class_name: "Api::V1::ProductStore"
       has_many :products, :through => :product_stores
+
     end
   end
 end

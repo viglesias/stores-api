@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::Product, type: :model do
   let(:product) { FactoryBot.create 'Api::V1::Product' }
+  let(:store) { FactoryBot.create 'Api::V1::Store' }
+  let(:prodyct_store) { FactoryBot.create 'Api::V1::ProductStore' }
 
   it 'is valid with valid attributes' do
     expect(product).to be_valid
@@ -34,6 +36,11 @@ RSpec.describe Api::V1::Product, type: :model do
   it 'is not valid without type' do
     product.product_type = ""
     expect(product).to_not be_valid
+  end
+
+  it "have created a relationship with Store" do
+    product.stores << store
+    expect(product.stores.first.name).to eq(store.name)
   end
 
 end
