@@ -5,9 +5,8 @@ describe 'API V1 Product', swagger_doc: 'v1/swagger.yaml' do
     get 'Retrieves Products' do
       description 'Retrieves all the products'
       produces 'application/json'
-      let(:collection_count) { 5 }
-      let(:expected_collection_count) { collection_count }
-      before { create_list('Api::V1::Product', collection_count) }
+      let(:expected_collection_count) { 5 }
+      before { create_list('Api::V1::Product', expected_collection_count) }
       response '200', 'Products retrieved' do
         schema type: :array,
                items: {
@@ -47,7 +46,7 @@ describe 'API V1 Product', swagger_doc: 'v1/swagger.yaml' do
     parameter name: :id, in: :path, type: :integer
     let(:existent_api_v1_product) { create('Api::V1::Product') }
     let(:id) { existent_api_v1_product.id }
-    get 'Retrieves Product' do
+    get 'Show Product' do
       produces 'application/json'
       response '200', 'product retrieved' do
         schema type: :object,

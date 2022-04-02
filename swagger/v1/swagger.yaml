@@ -27,7 +27,7 @@ paths:
                     product_type:
                       type: string
                     price:
-                      type: string
+                      type: float
     post:
       summary: Creates Product
       description: Creates Product
@@ -35,6 +35,50 @@ paths:
       responses:
         '201':
           description: stote created
+  "/api/v1/products/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: Show Product
+      responses:
+        '200':
+          description: product retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  sku:
+                    type: string
+                  product_type:
+                    type: string
+                  price:
+                    type: float
+        '404':
+          description: invalid product id
+    put:
+      summary: Updates product
+      description: Updates product
+      parameters: []
+      responses:
+        '200':
+          description: product updated
+    delete:
+      summary: Deletes product
+      description: Deletes specific product
+      responses:
+        '204':
+          description: product deleted
+        '404':
+          description: product not found
   "/api/v1/stores":
     get:
       summary: Retrieves Stores
@@ -74,7 +118,7 @@ paths:
       schema:
         type: integer
     get:
-      summary: Retrieves Store
+      summary: Show Store
       responses:
         '200':
           description: store retrieved
@@ -110,6 +154,73 @@ paths:
           description: store deleted
         '404':
           description: store not found
+  "/api/v1/stores/{id}/products":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: Show Store products
+      responses:
+        '200':
+          description: Products retrieved
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    sku:
+                      type: string
+                    product_type:
+                      type: string
+                    price:
+                      type: float
+        '404':
+          description: invalid store id
+  "/api/v1/stores/{id}/add_product/{product_id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+    - name: product_id
+      in: path
+      required: true
+      schema:
+        type: integer
+    post:
+      summary: Add product to store
+      responses:
+        '200':
+          description: Products retrieved
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    sku:
+                      type: string
+                    product_type:
+                      type: string
+                    price:
+                      type: float
+        '404':
+          description: invalid store id
 servers:
 - url: http://{defaultHost}:3000
   variables:
