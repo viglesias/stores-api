@@ -119,4 +119,11 @@ RSpec.describe Api::V1::StoresController do
     expect(Api::V1::Store.count).to eq(0)
     expect { Api::V1::Store.find(store.id) }.to raise_error(ActiveRecord::RecordNotFound)
   end
+
+  it 'Store with products' do
+    store = create('Api::V1::Store', :with_products)
+    get :products, params: {id: store.id}
+    expect(response).to be_successful
+
+  end
 end
