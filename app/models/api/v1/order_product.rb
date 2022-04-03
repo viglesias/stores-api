@@ -1,18 +1,18 @@
 # == Schema Information
 #
-# Table name: product_stores
+# Table name: order_products
 #
 #  id         :bigint           not null, primary key
 #  product_id :bigint
-#  store_id   :bigint
+#  order_id   :bigint
 #
-# app/models/api/v1/product_store.rb
+# app/models/api/v1/order_product.rb
 
-# ProductStore
+# OrderProduct
 module Api
   module V1
-    class ProductStore < ApplicationRecord
-      belongs_to :store
+    class OrderProduct < ApplicationRecord
+      belongs_to :order
       belongs_to :product
     end
   end
