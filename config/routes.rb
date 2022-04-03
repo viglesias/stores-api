@@ -13,6 +13,7 @@ Rails.application.routes.draw do
         end
       end
       resources :products
+      resources :orders
     end
   end
 end

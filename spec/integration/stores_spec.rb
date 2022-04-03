@@ -30,8 +30,22 @@ describe 'API V1 Store', swagger_doc: 'v1/swagger.yaml' do
       description 'Creates Store'
       consumes 'application/json'
       produces 'application/json'
-      parameter(name: :store, in: :body)
-      response '201', 'stote created' do
+      parameter(name: :store, in: :body, schema: {
+                  type: :object,
+                  properties: {
+                    store: {
+                      type: :object,
+                      properties: {
+                        name: { type: :string },
+                        address: { type: :string },
+                        email: { type: :string },
+                        phone: { type: :string }
+                      },
+                      required: %w[name address email phone]
+                    }
+                  }
+                })
+      response '201', 'store created' do
         let(:store) do
           {
             name: 'Some title',
@@ -71,7 +85,21 @@ describe 'API V1 Store', swagger_doc: 'v1/swagger.yaml' do
       description 'Updates Store'
       consumes 'application/json'
       produces 'application/json'
-      parameter(name: :store, in: :body)
+      parameter(name: :store, in: :body, schema: {
+                  type: :object,
+                  properties: {
+                    store: {
+                      type: :object,
+                      properties: {
+                        name: { type: :string },
+                        address: { type: :string },
+                        email: { type: :string },
+                        phone: { type: :string }
+                      },
+                      required: %w[name address email phone]
+                    }
+                  }
+                })
       response '200', 'store updated' do
         let(:store) do
           {

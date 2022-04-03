@@ -1,0 +1,16 @@
+
+   
+<h1>Orden: <%= @order.id %></h1>
+<ul>
+  <li>Tienda: <%= @store.name %></li>
+    <% if @products.present? %>
+        <li> Productos:
+            <ul>
+                <% @products.each do |product| %>
+                    <li><%= product.name %></li>
+                <% end %>
+            </ul>
+        </li>
+    <li>Total: <%= @order.total %></li>
+	<% end %>
+</ul>
