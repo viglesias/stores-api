@@ -24,7 +24,7 @@ RSpec.configure do |config|
       paths: {},
       servers: [
         {
-          url: 'https://{defaultHost}:3000',
+          url: 'https://{defaultHost}',
           variables: {
             defaultHost: {
               default: 'stores-api-pj.herokuapp.com'
