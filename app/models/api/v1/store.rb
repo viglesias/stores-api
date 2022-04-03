@@ -22,7 +22,7 @@ module Api
       has_many :product_stores, class_name: 'Api::V1::ProductStore'
       has_many :products, through: :product_stores
 
-      has_many :orders
+      has_many :orders, class_name: 'Api::V1::Order'
     end
   end
 end
