@@ -18,7 +18,7 @@ describe 'API V1 order', swagger_doc: 'v1/swagger.yaml' do
                     items: { type: :integer }
                    },
                    store_id: { type: :integer },                  
-                   total: { type: :float }
+                   total: { type: :integer }
                  }
                }
         run_test! do |response|
@@ -33,13 +33,11 @@ describe 'API V1 order', swagger_doc: 'v1/swagger.yaml' do
       parameter(name: :order, in: :body, schema: {
           type: :object,
             properties: {
-            id: { type: :integer },
             store_id: { type: :integer },
             product_ids: {
                 type: 'array',
                 items: { type: :integer }
                },
-            total: { type: :float }
           }
         })
       response '201', 'order created' do
@@ -85,13 +83,11 @@ describe 'API V1 order', swagger_doc: 'v1/swagger.yaml' do
       parameter(name: :order, in: :body, schema: {
         type: :object,
           properties: {
-          id: { type: :integer },
           store_id: { type: :integer },
           product_ids: {
               type: 'array',
               items: { type: :integer }
-             },
-          total: { type: :float }
+             }
         }
       })
       response '200', 'order updated' do
