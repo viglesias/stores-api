@@ -28,7 +28,15 @@ describe 'API V1 Product', swagger_doc: 'v1/swagger.yaml' do
       description 'Creates Product'
       consumes 'application/json'
       produces 'application/json'
-      parameter(name: :product, in: :body)
+      parameter(name: :product, in: :body, schema: {
+        type: :object,
+               properties: {
+                 name: { type: :string },
+                 sku: { type: :string },
+                 product_type: { type: :string },
+                 price: { type: :float }
+               }
+      })
       response '201', 'stote created' do
         let(:product) do
           {
@@ -68,7 +76,15 @@ describe 'API V1 Product', swagger_doc: 'v1/swagger.yaml' do
       description 'Updates product'
       consumes 'application/json'
       produces 'application/json'
-      parameter(name: :product, in: :body)
+      parameter(name: :product, in: :body, schema: {
+        type: :object,
+               properties: {
+                 name: { type: :string },
+                 sku: { type: :string },
+                 product_type: { type: :string },
+                 price: { type: :float }
+               }
+      })
       response '200', 'product updated' do
         let(:product) do
           {

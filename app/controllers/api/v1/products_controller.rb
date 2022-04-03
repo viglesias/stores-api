@@ -1,3 +1,5 @@
+# app/controllers/products_controller.rb
+
 module Api
   module V1
     class ProductsController < ApplicationController

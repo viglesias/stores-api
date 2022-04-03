@@ -4,6 +4,85 @@ info:
   title: API V1
   version: v1
 paths:
+  "/api/v1/Orders":
+    get:
+      summary: Retrieves Orders
+      description: Retrieves all the Orders
+      responses:
+        '200':
+          description: Orders retrieved
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    store_id:
+                      type: integer
+                    product_ids:
+                      type: object
+                      properties:
+                        type: array
+                        items:
+                          type: integer
+                    total:
+                      type: float
+    post:
+      summary: Creates Order
+      description: Creates Order
+      parameters: []
+      responses:
+        '201':
+          description: stote created
+  "/api/v1/Orders/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: Show Order
+      responses:
+        '200':
+          description: Order retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  store_id:
+                    type: integer
+                  product_ids:
+                    type: object
+                    properties:
+                      type: array
+                      items:
+                        type: integer
+                  total:
+                    type: float
+        '404':
+          description: invalid Order id
+    put:
+      summary: Updates Order
+      description: Updates Order
+      parameters: []
+      responses:
+        '200':
+          description: Order updated
+    delete:
+      summary: Deletes Order
+      description: Deletes specific Order
+      responses:
+        '204':
+          description: Order deleted
+        '404':
+          description: Order not found
   "/api/v1/products":
     get:
       summary: Retrieves Products
@@ -35,6 +114,20 @@ paths:
       responses:
         '201':
           description: stote created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                sku:
+                  type: string
+                product_type:
+                  type: string
+                price:
+                  type: float
   "/api/v1/products/{id}":
     parameters:
     - name: id
@@ -71,6 +164,20 @@ paths:
       responses:
         '200':
           description: product updated
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                sku:
+                  type: string
+                product_type:
+                  type: string
+                price:
+                  type: float
     delete:
       summary: Deletes product
       description: Deletes specific product
@@ -109,7 +216,29 @@ paths:
       parameters: []
       responses:
         '201':
-          description: stote created
+          description: store created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                store:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    address:
+                      type: string
+                    email:
+                      type: string
+                    phone:
+                      type: string
+                  required:
+                  - name
+                  - address
+                  - email
+                  - phone
   "/api/v1/stores/{id}":
     parameters:
     - name: id
@@ -146,6 +275,28 @@ paths:
       responses:
         '200':
           description: store updated
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                store:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    address:
+                      type: string
+                    email:
+                      type: string
+                    phone:
+                      type: string
+                  required:
+                  - name
+                  - address
+                  - email
+                  - phone
     delete:
       summary: Deletes Store
       description: Deletes specific store

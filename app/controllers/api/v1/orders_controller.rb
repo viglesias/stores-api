@@ -1,3 +1,5 @@
+# app/controllers/orders_controller.rb
+
 module Api
     module V1
       # == OrdersController
@@ -22,7 +24,7 @@ module Api
           @order = Order.new(order_params)
   
           if @order.save
-            OrderMailer.order_confirmation(@order)
+            OrderMailer.send_confirmation(@order)
             render json: @order, status: :created
           else
             render json: error_message(@order), status: :unprocessable_entity
