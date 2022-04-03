@@ -122,8 +122,7 @@ RSpec.describe Api::V1::StoresController do
 
   it 'Store with products' do
     store = create('Api::V1::Store', :with_products)
-    get :products, params: {id: store.id}
+    get :products, params: { id: store.id }
     expect(response).to be_successful
-
   end
 end

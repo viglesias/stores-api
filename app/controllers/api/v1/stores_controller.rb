@@ -46,11 +46,11 @@ module Api
       # Get /api/v1/stores/1/add_product/2
       def add_product
         product = Product.find(params[:product_id])
-        if(product && @store)
+        if product && @store
           @store.products << product
           @store.save ? (render json: @store.products) : (render json: @store.errors, status: :unprocessable_entity)
         else
-          render json: {error: "Product or Store incorrect"}.to_json , status: :unprocessable_entity
+          render json: { error: 'Product or Store incorrect' }.to_json, status: :unprocessable_entity
         end
       end
 

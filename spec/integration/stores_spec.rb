@@ -134,12 +134,11 @@ describe 'API V1 Store', swagger_doc: 'v1/swagger.yaml' do
     let(:existent_api_v1_product) { create('Api::V1::Product') }
     let(:id) { existent_api_v1_store_with_products.id }
     let(:product_id) { existent_api_v1_product.id }
-    let(:product_stores) { 
+    let(:product_stores) do
       FactoryBot.build(:product_stores,
-        product_id: existent_api_v1_product.id,
-        store_id: existent_api_v1_store_with_products.id
-      )
-    }
+                       product_id: existent_api_v1_product.id,
+                       store_id: existent_api_v1_store_with_products.id)
+    end
     let(:expected_collection_count) { 5 }
     post 'Add product to store' do
       produces 'application/json'

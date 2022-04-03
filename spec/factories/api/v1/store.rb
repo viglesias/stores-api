@@ -6,14 +6,14 @@ FactoryBot.define do
     phone { Faker::PhoneNumber.cell_phone_with_country_code }
     trait :with_products do
       transient do
-        products { create_list("Api::V1::Product", 5) }
+        products { create_list('Api::V1::Product', 5) }
       end
-  
+
       after(:build) do |store, evaluator|
         store.products << evaluator.products
       end
 
-      after(:create) { |store, evaluator| store.reload }
+      after(:create) { |store, _evaluator| store.reload }
     end
   end
 end
