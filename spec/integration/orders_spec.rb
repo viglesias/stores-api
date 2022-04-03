@@ -13,14 +13,11 @@ describe 'API V1 order', swagger_doc: 'v1/swagger.yaml' do
                  type: :object,
                  properties: {
                    id: { type: :integer },
-                   store_id: { type: :integer },
                    product_ids: {
-                     type: 'object',
-                     properties: {
-                       type: 'array',
-                       items: { type: :integer }
-                     }
+                    type: 'array',
+                    items: { type: :integer }
                    },
+                   store_id: { type: :integer },                  
                    total: { type: :float }
                  }
                }
@@ -39,12 +36,9 @@ describe 'API V1 order', swagger_doc: 'v1/swagger.yaml' do
             id: { type: :integer },
             store_id: { type: :integer },
             product_ids: {
-                type: 'object',
-                properties: {
                 type: 'array',
                 items: { type: :integer }
-                }
-            },
+               },
             total: { type: :float }
           }
         })
@@ -72,12 +66,9 @@ describe 'API V1 order', swagger_doc: 'v1/swagger.yaml' do
                  id: { type: :integer },
                  store_id: { type: :integer },
                  product_ids: {
-                   type: 'object',
-                   properties: {
-                     type: 'array',
-                     items: { type: :integer }
-                   }
-                 },
+                    type: 'array',
+                    items: { type: :integer }
+                   },
                  total: { type: :float }
                }
         run_test!
@@ -91,7 +82,18 @@ describe 'API V1 order', swagger_doc: 'v1/swagger.yaml' do
       description 'Updates order'
       consumes 'application/json'
       produces 'application/json'
-      parameter(name: :order, in: :body)
+      parameter(name: :order, in: :body, schema: {
+        type: :object,
+          properties: {
+          id: { type: :integer },
+          store_id: { type: :integer },
+          product_ids: {
+              type: 'array',
+              items: { type: :integer }
+             },
+          total: { type: :float }
+        }
+      })
       response '200', 'order updated' do
         let(:existent_api_v1_store_with_products) { create('Api::V1::Store', :with_products) }
         let(:order) do { 

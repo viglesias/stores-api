@@ -63,7 +63,7 @@ describe 'API V1 Product', swagger_doc: 'v1/swagger.yaml' do
                  name: { type: :string },
                  sku: { type: :string },
                  product_type: { type: :string },
-                 price: { type: :float }
+                 price: { type: :integer }
                }
         run_test!
       end
@@ -82,7 +82,7 @@ describe 'API V1 Product', swagger_doc: 'v1/swagger.yaml' do
                     name: { type: :string },
                     sku: { type: :string },
                     product_type: { type: :string },
-                    price: { type: :float }
+                    price: { type: :integer }
                   }
                 })
       response '200', 'product updated' do

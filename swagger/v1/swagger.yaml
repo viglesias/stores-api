@@ -20,14 +20,12 @@ paths:
                   properties:
                     id:
                       type: integer
+                    product_ids:
+                      type: array
+                      items:
+                        type: integer
                     store_id:
                       type: integer
-                    product_ids:
-                      type: object
-                      properties:
-                        type: array
-                        items:
-                          type: integer
                     total:
                       type: float
     post:
@@ -36,7 +34,7 @@ paths:
       parameters: []
       responses:
         '201':
-          description: stote created
+          description: order created
       requestBody:
         content:
           application/json:
@@ -48,11 +46,9 @@ paths:
                 store_id:
                   type: integer
                 product_ids:
-                  type: object
-                  properties:
-                    type: array
-                    items:
-                      type: integer
+                  type: array
+                  items:
+                    type: integer
                 total:
                   type: float
   "/api/v1/orders/{id}":
@@ -77,11 +73,9 @@ paths:
                   store_id:
                     type: integer
                   product_ids:
-                    type: object
-                    properties:
-                      type: array
-                      items:
-                        type: integer
+                    type: array
+                    items:
+                      type: integer
                   total:
                     type: float
         '404':
@@ -93,6 +87,22 @@ paths:
       responses:
         '200':
           description: order updated
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                store_id:
+                  type: integer
+                product_ids:
+                  type: array
+                  items:
+                    type: integer
+                total:
+                  type: float
     delete:
       summary: Deletes order
       description: Deletes specific order
@@ -172,7 +182,7 @@ paths:
                   product_type:
                     type: string
                   price:
-                    type: float
+                    type: integer
         '404':
           description: invalid product id
     put:
@@ -195,7 +205,7 @@ paths:
                 product_type:
                   type: string
                 price:
-                  type: float
+                  type: integer
     delete:
       summary: Deletes product
       description: Deletes specific product
