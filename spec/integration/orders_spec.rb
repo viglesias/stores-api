@@ -1,13 +1,13 @@
 require 'swagger_helper'
 
-describe 'API V1 Order', swagger_doc: 'v1/swagger.yaml' do
-  path '/api/v1/Orders' do
-    get 'Retrieves Orders' do
-      description 'Retrieves all the Orders'
+describe 'API V1 order', swagger_doc: 'v1/swagger.yaml' do
+  path '/api/v1/orders' do
+    get 'Retrieves orders' do
+      description 'Retrieves all the orders'
       produces 'application/json'
       let(:expected_collection_count) { 5 }
       before { create_list('Api::V1::Order', expected_collection_count) }
-      response '200', 'Orders retrieved' do
+      response '200', 'orders retrieved' do
         schema type: :array,
                items: {
                  type: :object,
@@ -15,12 +15,12 @@ describe 'API V1 Order', swagger_doc: 'v1/swagger.yaml' do
                    id: { type: :integer },
                    store_id: { type: :integer },
                    product_ids: {
-                    type: 'object',
-                    properties: {
-                      type: 'array',
-                      items: { type: :integer }
+                     type: 'object',
+                     properties: {
+                       type: 'array',
+                       items: { type: :integer }
                      }
-                    },
+                   },
                    total: { type: :float }
                  }
                }
@@ -29,61 +29,87 @@ describe 'API V1 Order', swagger_doc: 'v1/swagger.yaml' do
         end
       end
     end
-    post 'Creates Order' do
-      description 'Creates Order'
+    post 'Creates order' do
+      description 'Creates order'
       consumes 'application/json'
       produces 'application/json'
-      parameter(name: :Order, in: :body)
-      response '201', 'stote created' do
-        let(:order){create('Api::V1::Order', :with_products)}
+      parameter(name: :order, in: :body, schema: {
+          type: :object,
+            properties: {
+            id: { type: :integer },
+            store_id: { type: :integer },
+            product_ids: {
+                type: 'object',
+                properties: {
+                type: 'array',
+                items: { type: :integer }
+                }
+            },
+            total: { type: :float }
+          }
+        })
+      response '201', 'order created' do
+        let(:existent_api_v1_store_with_products) { create('Api::V1::Store', :with_products) }
+        let(:order) do { 
+            store_id: existent_api_v1_store_with_products.id,
+            total: 100, 
+            product_ids: [1,2,3,4,5]
+         }
+        end
         run_test!
       end
     end
   end
-  path '/api/v1/Orders/{id}' do
+  path '/api/v1/orders/{id}' do
     parameter name: :id, in: :path, type: :integer
     let(:existent_api_v1_order) { create('Api::V1::Order') }
     let(:id) { existent_api_v1_order.id }
-    get 'Show Order' do
+    get 'Show order' do
       produces 'application/json'
-      response '200', 'Order retrieved' do
+      response '200', 'order retrieved' do
         schema type: :object,
                properties: {
-                id: { type: :integer },
-                store_id: { type: :integer },
-                product_ids: {
-                    type: 'object',
-                    properties: {
-                      type: 'array',
-                      items: { type: :integer }
-                     }
-                    },
-                total: { type: :float }
+                 id: { type: :integer },
+                 store_id: { type: :integer },
+                 product_ids: {
+                   type: 'object',
+                   properties: {
+                     type: 'array',
+                     items: { type: :integer }
+                   }
+                 },
+                 total: { type: :float }
                }
         run_test!
       end
-      response '404', 'invalid Order id' do
+      response '404', 'invalid order id' do
         let(:id) { 'invalid' }
         run_test!
       end
     end
-    put 'Updates Order' do
-      description 'Updates Order'
+    put 'Updates order' do
+      description 'Updates order'
       consumes 'application/json'
       produces 'application/json'
-      parameter(name: :Order, in: :body)
-      response '200', 'Order updated' do
-        let(:order){create('Api::V1::Order', :with_products)}
+      parameter(name: :order, in: :body)
+      response '200', 'order updated' do
+        let(:existent_api_v1_store_with_products) { create('Api::V1::Store', :with_products) }
+        let(:order) do { 
+            store_id: existent_api_v1_store_with_products.id,
+            total: 100, 
+            product_ids: [1,2,3,4,5]
+         }
+        end
         run_test!
       end
     end
-    delete 'Deletes Order' do
+    delete 'Deletes order' do
       produces 'application/json'
-      description 'Deletes specific Order'
-      response '204', 'Order deleted' do
+      description 'Deletes specific order'
+      response '204', 'order deleted' do
         run_test!
       end
-      response '404', 'Order not found' do
+      response '404', 'order not found' do
         let(:id) { 'invalid' }
         run_test!
       end

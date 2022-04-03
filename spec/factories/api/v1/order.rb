@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory 'Api::V1::Order' do
-    store {Api::V1::Store.first || association("Api::V1::Store")}
+    store { Api::V1::Store.first || association('Api::V1::Store') }
     trait :with_products do
       transient do
         products { create_list('Api::V1::Product', 5) }

@@ -50,13 +50,12 @@ RSpec.describe Api::V1::OrdersController do
     expect(order.id).to be_an(Integer)
 
     expect(order.store_id).to be_a(Integer)
-
   end
 
   it 'can create a new order' do
     order_params = {
       store_id: create('Api::V1::Store').id,
-      product_ids:  create_list('Api::V1::Product', 3).map(&:id)
+      product_ids: create_list('Api::V1::Product', 3).map(&:id)
 
     }
 
@@ -74,7 +73,7 @@ RSpec.describe Api::V1::OrdersController do
     product_ids = Api::V1::Order.last.product_ids
     new_product_id = create('Api::V1::Product').id
     new_product_ids = [product_ids, new_product_id].flatten
-    order_params = { product_ids: new_product_ids  }
+    order_params = { product_ids: new_product_ids }
 
     # We include this header to make sure that these params are passed as JSON rather than as plain text
     patch :update, params: { id: id, order: order_params }
@@ -96,5 +95,4 @@ RSpec.describe Api::V1::OrdersController do
     expect(Api::V1::Order.count).to eq(0)
     expect { Api::V1::Order.find(order.id) }.to raise_error(ActiveRecord::RecordNotFound)
   end
-
 end

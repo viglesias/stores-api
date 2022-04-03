@@ -31,20 +31,20 @@ describe 'API V1 Store', swagger_doc: 'v1/swagger.yaml' do
       consumes 'application/json'
       produces 'application/json'
       parameter(name: :store, in: :body, schema: {
-        type: :object,
-        properties: {
-            store: { 
-              type: :object, 
-              properties: { 
-                name: { type: :string },
-                address: { type: :string },
-                email: { type: :string },
-                phone: { type: :string }
-              }, 
-              required: [ 'name', 'address', 'email', 'phone' ] 
-            }
-        }
-      })
+                  type: :object,
+                  properties: {
+                    store: {
+                      type: :object,
+                      properties: {
+                        name: { type: :string },
+                        address: { type: :string },
+                        email: { type: :string },
+                        phone: { type: :string }
+                      },
+                      required: %w[name address email phone]
+                    }
+                  }
+                })
       response '201', 'store created' do
         let(:store) do
           {
@@ -53,7 +53,7 @@ describe 'API V1 Store', swagger_doc: 'v1/swagger.yaml' do
             email: 'email@email.com',
             phone: '111111111'
           }
-        end 
+        end
         run_test!
       end
     end
@@ -86,20 +86,20 @@ describe 'API V1 Store', swagger_doc: 'v1/swagger.yaml' do
       consumes 'application/json'
       produces 'application/json'
       parameter(name: :store, in: :body, schema: {
-        type: :object,
-        properties: {
-            store: { 
-              type: :object, 
-              properties: { 
-                name: { type: :string },
-                address: { type: :string },
-                email: { type: :string },
-                phone: { type: :string }
-              }, 
-              required: [ 'name', 'address', 'email', 'phone' ] 
-            }
-        }
-      })
+                  type: :object,
+                  properties: {
+                    store: {
+                      type: :object,
+                      properties: {
+                        name: { type: :string },
+                        address: { type: :string },
+                        email: { type: :string },
+                        phone: { type: :string }
+                      },
+                      required: %w[name address email phone]
+                    }
+                  }
+                })
       response '200', 'store updated' do
         let(:store) do
           {

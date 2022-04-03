@@ -10,49 +10,47 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_03_081611) do
-
+ActiveRecord::Schema.define(version: 20_220_403_081_611) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension 'plpgsql'
 
-  create_table "order_products", force: :cascade do |t|
-    t.bigint "order_id"
-    t.bigint "product_id"
-    t.index ["order_id"], name: "index_order_products_on_order_id"
-    t.index ["product_id"], name: "index_order_products_on_product_id"
+  create_table 'order_products', force: :cascade do |t|
+    t.bigint 'order_id'
+    t.bigint 'product_id'
+    t.index ['order_id'], name: 'index_order_products_on_order_id'
+    t.index ['product_id'], name: 'index_order_products_on_product_id'
   end
 
-  create_table "orders", force: :cascade do |t|
-    t.integer "total"
-    t.bigint "store_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["store_id"], name: "index_orders_on_store_id"
+  create_table 'orders', force: :cascade do |t|
+    t.integer 'total'
+    t.bigint 'store_id'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['store_id'], name: 'index_orders_on_store_id'
   end
 
-  create_table "product_stores", force: :cascade do |t|
-    t.bigint "product_id"
-    t.bigint "store_id"
-    t.index ["product_id"], name: "index_product_stores_on_product_id"
-    t.index ["store_id"], name: "index_product_stores_on_store_id"
+  create_table 'product_stores', force: :cascade do |t|
+    t.bigint 'product_id'
+    t.bigint 'store_id'
+    t.index ['product_id'], name: 'index_product_stores_on_product_id'
+    t.index ['store_id'], name: 'index_product_stores_on_store_id'
   end
 
-  create_table "products", force: :cascade do |t|
-    t.string "name"
-    t.string "sku"
-    t.string "product_type"
-    t.float "price"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'products', force: :cascade do |t|
+    t.string 'name'
+    t.string 'sku'
+    t.string 'product_type'
+    t.float 'price'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 
-  create_table "stores", force: :cascade do |t|
-    t.string "name"
-    t.string "address"
-    t.string "email"
-    t.string "phone"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'stores', force: :cascade do |t|
+    t.string 'name'
+    t.string 'address'
+    t.string 'email'
+    t.string 'phone'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
-
 end
