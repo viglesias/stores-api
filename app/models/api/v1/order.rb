@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: orders
+#
+#  id         :bigint           not null, primary key
+#  total      :integer
+#  store_id   :bigint
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
 class Order < ApplicationRecord
     belongs_to :store
     has_many :order_products, class_name: 'Api::V1::OrderProduct'
