@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: stores
+#
+#  id         :bigint           not null, primary key
+#  name       :string
+#  address    :string
+#  email      :string
+#  phone      :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
 # spec/models/store_spec.rb
 
 require 'rails_helper'

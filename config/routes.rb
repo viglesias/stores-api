@@ -6,7 +6,13 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :stores
+      resources :stores do
+        member do
+          get 'products'
+          match 'add_product/:product_id' => 'stores#add_product', via: :post
+        end
+      end
+      resources :products
     end
   end
 end

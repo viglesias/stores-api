@@ -4,7 +4,7 @@ module Api
   module V1
     # Controller for stores
     class StoresController < ApplicationController
-      before_action :set_store, only: [:show, :update, :destroy]
+      before_action :set_store, only: [:show, :update, :destroy, :products, :add_product]
 
       # GET /api/v1/stores
       def index
@@ -43,6 +43,22 @@ module Api
         @store.destroy
       end
 
+      # Get /api/v1/stores/1/add_product/2
+      def add_product
+        product = Product.find(params[:product_id])
+        if product && @store
+          @store.products << product
+          @store.save ? (render json: @store.products) : (render json: @store.errors, status: :unprocessable_entity)
+        else
+          render json: { error: 'Product or Store incorrect' }.to_json, status: :unprocessable_entity
+        end
+      end
+
+      # Get /api/v1/stores/1/products
+      def products
+        render json: @store.products
+      end
+
       private
 
       # Use callbacks to share common setup or constraints between actions.
@@ -52,7 +68,7 @@ module Api
 
       # Only allow a trusted parameter "white list" through.
       def store_params
-        params.require(:store).permit(:name, :address, :email, :phone)
+        params.require(:store).permit(:name, :address, :email, :phone, :product_id)
       end
     end
   end
