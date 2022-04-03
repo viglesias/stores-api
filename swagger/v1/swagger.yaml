@@ -222,7 +222,7 @@ paths:
         '404':
           description: invalid store id
 servers:
-- url: http://{defaultHost}:35794
+- url: http://{defaultHost}:3000
   variables:
     defaultHost:
       default: localhost
